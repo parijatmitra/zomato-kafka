@@ -6,19 +6,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import com.google.gson.Gson;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class KafkaService {
 
-    private final KafkaTemplate<String, String>kafkaTemplate;
+    private final KafkaTemplate<String, Order>kafkaTemplate;
     public Boolean updateLocation(Order location) {
-        Gson gson = new Gson();
-        String jsonString2 = gson.toJson(location);
-        this.kafkaTemplate.send(AppConstants.LOCATION_TOPIC_NAME,
-                jsonString2);
+//        Gson gson = new Gson();
+//        String jsonString2 = gson.toJson(location);
+//        this.kafkaTemplate.send(AppConstants.LOCATION_TOPIC_NAME,
+//                jsonString2);
+        kafkaTemplate.send(AppConstants.LOCATION_TOPIC_NAME,
+                location);
         log.info("message produced");
         return true;
     }
